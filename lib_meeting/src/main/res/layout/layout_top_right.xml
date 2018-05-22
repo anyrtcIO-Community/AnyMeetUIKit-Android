@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_camera"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/baise"
+
+    >
+
+    <org.webrtc.SurfaceViewRenderer
+        android:id="@+id/suface_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/alpha_40_black"
+        android:ellipsize="end"
+
+        android:maxLength="7"
+        android:padding="4dp"
+        android:visibility="gone"
+        android:singleLine="true"
+        android:textColor="@color/baise"
+        android:textSize="12sp" />
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_popuwindow"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:gravity="center"
+                android:paddingLeft="2dp"
+                android:text="name"
+                android:textColor="#999999" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></View>
+
+            <Button
+                android:id="@+id/btn_video"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="@null"
+                android:textColor="@color/lanse"
+                android:text="禁止视频"
+                android:gravity="center"
+                android:textSize="16dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line"></View>
+
+            <Button
+                android:id="@+id/btn_audio"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="@null"
+                android:textColor="@color/lanse"
+                android:text="禁止音频"
+                android:gravity="center"
+                android:textSize="16dp" />
+
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line">
+
+            </View>
+            <Button
+                android:id="@+id/btn_go_out"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="踢出会议"
+                android:textColor="@color/lanse"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_popuwindow">
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:textColor="#ff4a4a"
+                android:text="取消"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+

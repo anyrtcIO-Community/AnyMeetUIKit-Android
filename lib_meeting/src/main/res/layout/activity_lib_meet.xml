@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.lib_MeetActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_video"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_white_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/rl_top_futures_lib"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/alpha_80_black"
+        android:paddingBottom="6dp"
+        android:orientation="vertical"
+        android:paddingTop="6dp">
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_speak_lib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onBtnClick"
+            android:padding="12dp"
+            android:src="@drawable/select_speak_lib" />
+
+        <ImageView
+            android:id="@+id/iv_switch_camera_lib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_speak_lib"
+            android:onClick="onBtnClick"
+            android:padding="12dp"
+            android:src="@drawable/iv_switch_camera_lib" />
+
+        <TextView
+            android:id="@+id/tv_meet_id_lib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="0000 0000"
+            android:textColor="@color/baise" />
+
+        <TextView
+            android:id="@+id/tv_meet_exit_lib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="onBtnClick"
+            android:padding="12dp"
+            android:text="@string/exit_meet"
+            android:textColor="@color/red_lib" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_futures_lib"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/alpha_80_black"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
+
+        <TextView
+            android:id="@+id/tv_audio_lib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/select_audio_lib"
+            android:gravity="center"
+            android:onClick="onBtnClick"
+            android:text="@string/open_audio_lib"
+            android:textColor="@color/baise"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_video_lib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/select_vidio_lib"
+            android:gravity="center"
+            android:onClick="onBtnClick"
+            android:text="@string/open_video_lib"
+            android:textColor="@color/baise"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_doc_share_lib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/select_doc_share_lib"
+            android:gravity="center"
+            android:onClick="onBtnClick"
+            android:text="@string/doc_share_lib"
+            android:textColor="@color/baise"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_people_lib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/iv_people_lib"
+            android:gravity="center"
+            android:onClick="onBtnClick"
+            android:text="@string/people_lib"
+            android:textColor="@color/baise"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_more_lib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawablePadding="2dp"
+            android:drawableTop="@drawable/iv_more_lib"
+            android:gravity="center"
+            android:onClick="onBtnClick"
+            android:text="@string/more_lib"
+            android:textColor="@color/baise"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
+
+</FrameLayout>

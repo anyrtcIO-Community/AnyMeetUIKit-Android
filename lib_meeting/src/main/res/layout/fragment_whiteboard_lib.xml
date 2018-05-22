@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_rootView"
+    android:background="@drawable/board_bg"
+    android:orientation="vertical">
+
+
+        <org.anyrtc.whiteboard.http.WhiteBoard
+            android:id="@+id/wb_board"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></org.anyrtc.whiteboard.http.WhiteBoard>
+
+    <ImageView
+        android:id="@+id/iv_left_lib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:src="@drawable/iv_left_lib" />
+
+    <ImageView
+        android:id="@+id/iv_right_lib"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/iv_right_lib" />
+
+    <FrameLayout
+        android:id="@+id/fl_more_futures"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="60dp"
+        android:layout_marginLeft="12dp">
+
+
+        <LinearLayout
+            android:id="@+id/ll_more_futures"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/shape_board_btn"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:paddingLeft="35dp"
+            android:paddingRight="20dp">
+
+            <ImageButton
+                android:id="@+id/ib_paint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="12dp"
+                android:src="@drawable/select_board_paint_lib" />
+
+            <ImageButton
+                android:id="@+id/ib_jiantou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="12dp"
+                android:src="@drawable/select_board_jiantou_lib" />
+
+
+            <ImageButton
+                android:id="@+id/ib_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="12dp"
+                android:src="@drawable/select_board_color_lib" />
+
+            <ImageButton
+                android:id="@+id/ib_undo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="12dp"
+                android:src="@drawable/select_board_undo_lib" />
+
+            <ImageButton
+                android:id="@+id/ib_clean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="12dp"
+                android:src="@drawable/select_board_clean_lib" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_more_future"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/select_board_futures_lib" />
+    </FrameLayout>
+
+
+</RelativeLayout>

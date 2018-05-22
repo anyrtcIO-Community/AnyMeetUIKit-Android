@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">lib_common</string>
+    <string name="exit_meet">退出会议</string>
+    <string name="open_audio_lib">打开语音</string>
+    <string name="open_video_lib">打开视频</string>
+    <string name="doc_share_lib">文档分享</string>
+    <string name="people_lib">参会人员</string>
+    <string name="more_lib">更多</string>
+    <string name="join_room_play_music">进出会议室播放提示音</string>
+    <string name="meet_lock_tip_lib">会议一旦加锁，将不能有新的参与者进入本次会议</string>
+    <string name="meet_lock_lib">会议加锁</string>
+    <string name="meet_url">会议网址：</string>
+    <string name="meet_title">会议主题：</string>
+    <string name="meet_ids">会议ID：</string>
+    <string name="meet_pwd">会议密码：</string>
+    <string name="let_us_meet_in_team">让我们在Teameeting会议中见吧!</string>
+    <string name="had_copy_link">已复制会议链接到剪贴板~</string>
+    <string name="can_not_sms_share">无法短信分享</string>
+    <string name="no">无</string>
+    <string name="close_board">关闭画板</string>
+    <string name="switch_screen">切换屏幕</string>
+    <string name="doc_share">文档共享</string>
+    <string name="close_meet">退出会议</string>
+    <string name="open_audio">打开语音</string>
+    <string name="close_audio">关闭语音</string>
+    <string name="open_video">打开视频</string>
+    <string name="close_video">关闭视频</string>
+    <string name="u_kicked_out_room">你被踢出会议室</string>
+    <string name="please_input_content">请输入要发送的内容</string>
+</resources>
