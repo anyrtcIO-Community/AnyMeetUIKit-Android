@@ -143,11 +143,19 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         anyRTCAudioManager = AnyRTCAudioManager.create(this, new Runnable() {
             @Override
             public void run() {
+                if (anyRTCAudioManager.getSelectedAudioDevice().equals(AnyRTCAudioManager.AudioDevice.SPEAKER_PHONE)){
+                    if (ivSpeak!=null) {
+                        ivSpeak.setSelected(false);
+                    }
+                }else {
+                    if (ivSpeak!=null) {
+                        ivSpeak.setSelected(true);
+                    }
+                }
             }
         });
 
         anyRTCAudioManager.init();
-        anyRTCAudioManager.setAudioDevice(AnyRTCAudioManager.AudioDevice.SPEAKER_PHONE);
         NotifyMessageManager.getInstance().setImageUploadFinish(this);
 
         initSDK();

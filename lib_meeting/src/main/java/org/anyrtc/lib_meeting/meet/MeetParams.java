@@ -4,6 +4,7 @@ package org.anyrtc.lib_meeting.meet;
  * Created by liuxiaozhong on 2018/5/10.
  */
 public class MeetParams {
+
     public String anyRTCId;
     public String userId;
     public String hostId;
@@ -12,6 +13,19 @@ public class MeetParams {
     public String meetTheme;
     public String meetPassword;
     public int meetMode;
+
+
+    /**
+     *
+     * @param anyRTCId  会议ID 保持唯一
+     * @param userId  用户ID
+     * @param hostId  主持会议的人的ID
+     * @param headUrl  头像地址
+     * @param nickName  用户昵称
+     * @param meetTheme  会议主题
+     * @param meetPassword  会议密码
+     * @param meetMode  会议清晰度
+     */
     public MeetParams(String anyRTCId, String userId, String hostId,String headUrl,String nickName,String  meetTheme,String meetPassword,int meetMode) {
         this.anyRTCId = anyRTCId;
         this.userId = userId;

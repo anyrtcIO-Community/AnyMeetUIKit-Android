@@ -45,6 +45,10 @@ public class MeetingActivity extends AppCompatActivity implements NotifyMessageM
     }
 
 
+    /**
+     * 该方法为进入图片选择后 选择的图片地址回调  开发者再此将图片上传到图片服务器 再将通知sdk  sendImageUploadFinishMessage
+     * @param imagePath
+     */
     @Override
     public void imageList(List<String> imagePath) {
         List<String> list = new ArrayList<>();
@@ -54,6 +58,18 @@ public class MeetingActivity extends AppCompatActivity implements NotifyMessageM
         NotifyMessageManager.getInstance().sendImageUploadFinishMessage(list, "1000000");
     }
 
+
+    /**
+     *
+     * @param anyRTCId  会议ID 保持唯一
+     * @param userId  用户ID
+     * @param hostId  主持会议的人的ID
+     * @param headUrl  头像地址
+     * @param nickName  用户昵称
+     * @param meetTheme  会议主题
+     * @param meetPassword  会议密码
+     * @param meetMode  会议清晰度
+     */
     @OnClick(R.id.start)
     public void onViewClicked() {
         MeetSDK.getInstance().StartMeet(MeetingActivity.this, new MeetParams(etAnyRTC.getText().toString(), etUserid.getText().toString(), "385520219", "", etNickname.getText().toString(), etTheme.getText().toString(), etPassword.getText().toString(),MeetParams.MeetMode.AnyRTCVideoQuality_Height1.level));
