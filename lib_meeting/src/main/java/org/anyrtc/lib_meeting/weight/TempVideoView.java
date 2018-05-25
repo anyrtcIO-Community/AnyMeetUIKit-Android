@@ -2,9 +2,9 @@ package org.anyrtc.lib_meeting.weight;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -248,6 +248,8 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
         }
 
         public Boolean Hited(int px, int py) {
+            mScreenWidth = ScreenUtils.getScreenWidth(mLayout.getContext());
+            mScreenHeight = ScreenUtils.getScreenHeight(mLayout.getContext()) ;
             if (!Fullscreen()) {
                 int left = x * mScreenWidth / 100;
                 int top = y * mScreenHeight / 100;
@@ -271,7 +273,12 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
     public VideoRenderer openScreenShare(final String strRtcPeerId) {
         TempVideoView.VideoView remoteRender = screenRender.get(strRtcPeerId);
         if (remoteRender == null) {
-            remoteRender = new VideoView(strRtcPeerId, mVideoView.getContext(), mRootEglBase, 0, 0, 34, 100, 32);
+            if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                remoteRender = new VideoView(strRtcPeerId, mVideoView.getContext(), mRootEglBase, 0, 0, 0, 100, 100);
+            } else if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                remoteRender = new VideoView(strRtcPeerId, mVideoView.getContext(), mRootEglBase, 0, 0, 36, 100, 27);
+            }
+
             mVideoView.addView(remoteRender.mLayout, mVideoView.getChildCount());
             remoteRender.mLayout.setPosition(
                     remoteRender.x, remoteRender.y, remoteRender.w, remoteRender.h);
@@ -348,7 +355,6 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
     private VideoView mLocalRender;
     public HashMap<String, VideoView> mRemoteRenders;
     private HashMap<String, VideoView> screenRender;
-    public HashMap<String, AlphaAnimation> mAnimotion;
     private Context context;
     public TempVideoView(RelativeLayout videoView, Context context, EglBase eglBase, boolean isHost) {
         mAutoLayout = false;
@@ -357,11 +363,8 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
         mLocalRender = null;
         mRemoteRenders = new HashMap<>();
         screenRender = new HashMap<>();
-        mAnimotion=new HashMap<>();
         this.isHost = isHost;
         this.context=context;
-        mScreenWidth = ScreenUtils.getScreenWidth(context);
-        mScreenHeight = ScreenUtils.getScreenHeight(context) - ScreenUtils.getStatusHeight(context);
     }
 
     public int GetVideoRenderSize() {
@@ -578,7 +581,7 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
             while (iter.hasNext()) {
                 Map.Entry<String, VideoView> entry = iter.next();
                 TempVideoView.VideoView render = entry.getValue();
-                render.mLayout.setPosition(0, 32, 100, 34);
+                render.mLayout.setPosition(0, 36, 100, 27);
                 render.mView.requestLayout();
             }
         }
@@ -635,6 +638,7 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
                 mLocalRender.x = remotePosition;
             }
             render.mLayout.setPosition(remotePosition, render.y, SUB_WIDTH, SUB_HEIGHT);
+            Log.d("小视频"+render.strPeerId,"x:"+remotePosition+"--y:"+render.y+"--w:"+render.w+"--h:"+render.h);
             render.mView.requestLayout();
         }
     }
@@ -677,7 +681,6 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
             remoteRender.mRenderer = new VideoRenderer(remoteRender.mView);
 //            remoteRender.tv_name.setText(name);
             mRemoteRenders.put(strRtcPeerId, remoteRender);
-
             updateVideoView();
 //            updateVideoViewWith();
         }
@@ -699,7 +702,6 @@ public class TempVideoView implements RTCViewHelper, View.OnTouchListener {
             remoteRender.close();
             mVideoView.removeView(remoteRender.mLayout);
             mRemoteRenders.remove(peerId);
-            mAnimotion.remove(peerId);
             updateVideoView();
 //            updateVideoViewWith();
         }

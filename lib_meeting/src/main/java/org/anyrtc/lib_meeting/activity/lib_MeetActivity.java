@@ -125,7 +125,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         fl_white_board = findViewById(R.id.fl_white_board);
         libMemberFragment = new libMemberFragment();
         libMessageFragment = new libMessageFragment();
-        libWhiteBoardFragment = new libWhiteBoardFragment();
+
         rl_video.setOnClickListener(this);
         if (mHandler != null) {
             mHandler.postDelayed(runnable, 1000);
@@ -540,6 +540,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                         isSelfShare = true;
                         shareType = 1;
                         tvExit.setText(R.string.close_board);
+                        libWhiteBoardFragment = new libWhiteBoardFragment();
                         libWhiteBoardFragment.setImageList(imageList, true, boardFileId);
                         addFragment(R.id.fl_white_board, libWhiteBoardFragment, false, new Fragment[0]);
                         Drawable drawable = getResources().getDrawable(R.drawable.iv_switch_screen);
@@ -575,6 +576,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                             for (int i=0;i<image.length();i++){
                                 imageList.add(image.get(i).toString());
                             }
+                            libWhiteBoardFragment = new libWhiteBoardFragment();
                             libWhiteBoardFragment.setImageList(imageList, false, fileId);
                             addFragment(R.id.fl_white_board, libWhiteBoardFragment, false, new Fragment[0]);
                         } catch (JSONException e) {
@@ -604,7 +606,8 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                     if (shareType == 1) {
                         libWhiteBoardFragment.close();
                         imageList.clear();
-                        addFragment(R.id.fl_white_board, null, false, libWhiteBoardFragment);
+                        getSupportFragmentManager().beginTransaction().remove(libWhiteBoardFragment).commit();
+                        libWhiteBoardFragment=null;
                     } else {
                         if (mVideoView != null) {
                             mVideoView.setPeopleShow(View.VISIBLE, shareScreenInfo);
@@ -658,9 +661,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
             }
         } else if (id == R.id.tv_meet_exit_lib) {
             if (isHadSomeoneShare && shareType == 1 && isSelfShare) {
-                libWhiteBoardFragment.close();
                 mMeetKit.setUserShareEnable(1, false);
-                addFragment(R.id.fl_white_board, null, false, libWhiteBoardFragment);
             } else {
                 finishAnimActivity();
             }

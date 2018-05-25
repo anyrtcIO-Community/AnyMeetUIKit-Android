@@ -121,7 +121,7 @@ public class libWhiteBoardFragment extends lib_BaseFragment implements WihteBoar
             params.width = (int) width;
         } else {
             final float width = this.getResources().getDisplayMetrics().widthPixels;
-            final double height = width * 1.3333;//16:9   薯片
+            final double height = width / 1.3333;//16:9   薯片
             params.height = (int) height;// 强制设置控件的大小
             params.width = (int) width;
         }
@@ -220,6 +220,7 @@ public class libWhiteBoardFragment extends lib_BaseFragment implements WihteBoar
 
     public void close() {
         whiteBoard.leaveBoard();
+
     }
 
     @Override
