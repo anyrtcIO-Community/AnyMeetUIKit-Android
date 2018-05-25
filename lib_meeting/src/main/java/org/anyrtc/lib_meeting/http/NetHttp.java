@@ -29,7 +29,7 @@ public class NetHttp {
 
     private static NetHttp instance;
 
-    public static final String SERVER_URL = "http://192.168.1.111:8799/teameeting/gateway/";
+    public static final String SERVER_URL = "http://120.77.18.113:8799/teameeting/gateway/";
     public static NetHttp getInstance() {
         if (instance == null)
             synchronized (NetHttp.class) {
