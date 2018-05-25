@@ -80,9 +80,9 @@ public class MeetingActivity extends AppCompatActivity implements NotifyMessageM
     @Override
     public void imageList(List<String> imagePath) {
         List<String> list = new ArrayList<>();
+        list.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527246715175&di=6af4fc09ee94758368924c26ac163955&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F04ca1c568326e10000016d346e9e09.jpg");
         list.add("http://img1.imgtn.bdimg.com/it/u=3378476916,3056761097&fm=214&gp=0.jpg");
-        list.add("http://img1.imgtn.bdimg.com/it/u=3378476916,3056761097&fm=214&gp=0.jpg");
-        list.add("http://img1.imgtn.bdimg.com/it/u=3378476916,3056761097&fm=214&gp=0.jpg");
+        list.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1527246715175&di=6af4fc09ee94758368924c26ac163955&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F04ca1c568326e10000016d346e9e09.jpg");
         NotifyMessageManager.getInstance().sendImageUploadFinishMessage(list, "1000000");
     }
 
