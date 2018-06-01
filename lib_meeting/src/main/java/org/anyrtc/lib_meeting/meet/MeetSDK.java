@@ -98,7 +98,7 @@ public class MeetSDK {
      * /**
      * 创建会议
      *
-     * @param userId        用户第三方平台的userid 不能为空
+     * @param anyRTCOpenId        用户第三方平台的userid 不能为空
      * @param meetName      会议名称 不能为空
      * @param meetType      会议类型 1 交流  2 终端会议 不能为空
      * @param startTime     会议开始时间 格式 2018-08-08 12:12:12 （24小时制） 不能为空
@@ -108,10 +108,10 @@ public class MeetSDK {
      * @param requestResult
      */
 
-    public void creatMeetRoom(@NonNull String userId, @NonNull String meetName, @NonNull String meetType, @NonNull String startTime, String password, @NonNull String limitType, JSONArray memberList, @NonNull final RequestResult requestResult) {
+    public void creatMeetRoom(@NonNull String anyRTCOpenId, @NonNull String meetName, @NonNull String meetType, @NonNull String startTime, String password, @NonNull String limitType, JSONArray memberList, @NonNull final RequestResult requestResult) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", userId);
+            jsonObject.put("userid", anyRTCOpenId);
             jsonObject.put("meet_name", meetName);
             jsonObject.put("meet_type", meetType);
             jsonObject.put("meet_start_time", startTime);
@@ -127,14 +127,14 @@ public class MeetSDK {
     /**
      * 删除会议
      *
-     * @param userId        用户第三方平台的userid 必填
+     * @param anyRTCOpenId        用户第三方平台的userid 必填
      * @param meetId        用户会议室id 必填
      * @param requestResult
      */
-    public void deleteMeetRoom(@NonNull String userId, @NonNull String meetId, @NonNull final RequestResult requestResult) {
+    public void deleteMeetRoom(@NonNull String anyRTCOpenId, @NonNull String meetId, @NonNull final RequestResult requestResult) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", userId);
+            jsonObject.put("userid", anyRTCOpenId);
             jsonObject.put("meetingid", meetId);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -161,15 +161,15 @@ public class MeetSDK {
     /**
      * 获取会议列表
      *
-     * @param userId        用户第三方平台的userid
+     * @param anyRTCOpenId        用户第三方平台的userid
      * @param pageNum       分页加载的页码（从1开始）
      * @param pageSize      每页多少条数据（必须大于0）
      * @param requestResult
      */
-    public void getMeetList(@NonNull String userId, @NonNull String pageNum, @NonNull String pageSize, @NonNull final RequestResult requestResult) {
+    public void getMeetList(@NonNull String anyRTCOpenId, @NonNull String pageNum, @NonNull String pageSize, @NonNull final RequestResult requestResult) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", userId);
+            jsonObject.put("userid", anyRTCOpenId);
             jsonObject.put("page_num", pageNum);
             jsonObject.put("page_size", pageSize);
         } catch (JSONException e) {
@@ -182,15 +182,15 @@ public class MeetSDK {
     /**
      * 更新会议开始时间
      *
-     * @param userId        用户第三方平台的userid
+     * @param anyRTCOpenId        用户第三方平台的userid
      * @param startTime     会议开始时间 （时间戳格式（2018-08-08 12:12:12））
      * @param meetingid     会议室id
      * @param requestResult
      */
-    public void updataMeetStartTime(@NonNull String userId, @NonNull String startTime, @NonNull String meetingid, @NonNull final RequestResult requestResult) {
+    public void updataMeetStartTime(@NonNull String anyRTCOpenId, @NonNull String startTime, @NonNull String meetingid, @NonNull final RequestResult requestResult) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", userId);
+            jsonObject.put("userid", anyRTCOpenId);
             jsonObject.put("meet_start_time", startTime);
             jsonObject.put("meetingid", meetingid);
         } catch (JSONException e) {
@@ -202,15 +202,15 @@ public class MeetSDK {
     /**
      * 邀请或者添加参会人员
      *
-     * @param userId           用户第三方平台的userid
+     * @param anyRTCOpenId           用户第三方平台的userid
      * @param meet_member_list 会议的指定人员的用户id列表，用户系统的userid，（字符串数组，[“userid0”,”userid1”…]）
      * @param meetId           会议室id
      * @param requestResult
      */
-    public void inviteMeetMember(@NonNull String userId, @NonNull JSONArray meet_member_list, @NonNull String meetId, @NonNull final RequestResult requestResult) {
+    public void inviteMeetMember(@NonNull String anyRTCOpenId, @NonNull JSONArray meet_member_list, @NonNull String meetId, @NonNull final RequestResult requestResult) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", userId);
+            jsonObject.put("userid", anyRTCOpenId);
             jsonObject.put("meet_member_list", meet_member_list.toString());
             jsonObject.put("meetingid", meetId);
         } catch (JSONException e) {
@@ -222,15 +222,15 @@ public class MeetSDK {
     /**
      * 踢除或者删除参会人员
      *
-     * @param userId           用户第三方平台的userid
+     * @param anyRTCOpenId           用户第三方平台的userid
      * @param meet_member_list 会议的指定人员的用户id列表，用户系统的userid，（字符串数组，[“userid0”,”userid1”…]）
      * @param meetId           会议室id
      * @param requestResult
      */
-    public void deleteMeetMember(@NonNull String userId, @NonNull JSONArray meet_member_list, @NonNull String meetId, @NonNull final RequestResult requestResult) {
+    public void deleteMeetMember(@NonNull String anyRTCOpenId, @NonNull JSONArray meet_member_list, @NonNull String meetId, @NonNull final RequestResult requestResult) {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("userid", userId);
+            jsonObject.put("userid", anyRTCOpenId);
             jsonObject.put("meet_member_list", meet_member_list.toString());
             jsonObject.put("meetingid", meetId);
         } catch (JSONException e) {
@@ -254,6 +254,32 @@ public class MeetSDK {
         startRequest("meeting/get_meeting_member_list?", jsonObject, requestResult);
     }
 
+    /**
+     *
+     * @param anyRTCOpenId
+     * @param meetId
+     * @param isLock
+     * @param requestResult
+     */
+    public void updateMeetLock(@NonNull String anyRTCOpenId,@NonNull String meetId, @NonNull boolean isLock,@NonNull final RequestResult requestResult) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("userid", anyRTCOpenId);
+            jsonObject.put("meetingid", meetId);
+            jsonObject.put("is_lock", isLock?1:0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        startRequest("meeting/update_meeting_lock?", jsonObject, requestResult);
+    }
+
+
+
+
+
+
+
+
 
     private void startRequest(String url, JSONObject content, @NonNull final RequestResult requestResult) {
         final StringRequest request = new StringRequest(NetHttp.SERVER_URL + url + NetHttp.getMeetRequest(content));
@@ -271,17 +297,18 @@ public class MeetSDK {
     }
 
 
-    public void StartMeet(@NonNull Activity activity, @NonNull MeetParams params) {
+
+
+
+
+
+    public void StartMeet(@NonNull Activity activity, @NonNull MeetParams params,@NonNull UserParams userParams) {
         int audioPermisson = ActivityCompat.checkSelfPermission(AnyRTCMeetEngine.Inst().context(), RECORD_AUDIO);
         int videoPermission = ActivityCompat.checkSelfPermission(AnyRTCMeetEngine.Inst().context(), CAMERA);
         if (audioPermisson== PackageManager.PERMISSION_GRANTED&&videoPermission==PackageManager.PERMISSION_GRANTED){
             Intent i = new Intent(activity, lib_MeetActivity.class);
-            i.putExtra(lib_Constans.ANYRTCID, params.anyRTCId);
-            i.putExtra(lib_Constans.NAME, params.nickName);
-            i.putExtra(lib_Constans.HEADURL, params.headUrl);
-            i.putExtra(lib_Constans.USERID, params.userId);
-            i.putExtra(lib_Constans.HOSTID, params.hostId);
-            i.putExtra(lib_Constans.MEETMODE,params.meetMode);
+            i.putExtra(lib_Constans.MEET_PARAMS,params);
+            i.putExtra(lib_Constans.USER_PARAMS,userParams);
             activity.startActivity(i);
         }else {
             Toast.makeText(activity,"请检查相机和录音权限是否开启",Toast.LENGTH_SHORT).show();

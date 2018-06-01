@@ -27,4 +27,5 @@
     <string name="close_video">关闭视频</string>
     <string name="u_kicked_out_room">你被踢出会议室</string>
     <string name="please_input_content">请输入要发送的内容</string>
+    <string name="params_missing">参数不存在！！！</string>
 </resources>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EEEEEE"
+    tools:context=".activity.JoinActivity">
+
+    <include layout="@layout/top_bar"></include>
+
+    <EditText
+        android:id="@+id/et_meet_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:background="@color/baise"
+        android:layout_marginTop="12dp"
+        android:drawableLeft="@drawable/img_meet_name"
+        android:drawablePadding="12dp"
+        android:hint="@string/please_input_meet_id"
+        android:textColorHint="#BBBBBB"
+        android:singleLine="true"
+        android:inputType="number"
+        />
+
+    <Button
+        android:id="@+id/btn_join"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/join_meet"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="@color/baise"
+        android:background="@drawable/shape_green_btn"/>
+
+</LinearLayout>

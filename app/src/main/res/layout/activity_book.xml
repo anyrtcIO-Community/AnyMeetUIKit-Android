@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#EEEEEE"
+    tools:context=".activity.JoinActivity">
+
+    <include layout="@layout/top_bar"></include>
+
+    <EditText
+        android:id="@+id/et_meet_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:background="@color/baise"
+        android:layout_marginTop="12dp"
+        android:drawableLeft="@drawable/img_meet_name"
+        android:drawablePadding="12dp"
+        android:hint="请输入会议名称"
+        android:textColorHint="#BBBBBB"
+        android:singleLine="true"
+        android:maxLength="24"
+        />
+    <FrameLayout
+        android:id="@+id/fl_meet_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/baise"
+        android:layout_marginTop="12dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开始时间"
+            android:padding="14dp"
+            android:textColor="#333333"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="14dp"
+            android:textColor="#BBBBBB"
+            android:text=""/>
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/book_meet"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="@color/baise"
+        android:background="@drawable/shape_green_btn"/>
+
+</LinearLayout>

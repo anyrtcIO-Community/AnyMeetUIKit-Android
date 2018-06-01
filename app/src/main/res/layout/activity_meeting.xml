@@ -5,85 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.anyrtc.meeting.MeetingActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="对接Teameeting" />
+    android:background="#EBEBEB"
+    tools:context="org.anyrtc.meeting.activity.MainActivity">
+    <include layout="@layout/top_bar"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        >
 
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="对接" />
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:translationZ="3dp"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_height="130dp">
 
-        <TextView
-            android:id="@+id/tv_userId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="userId:" />
+            <FrameLayout
+                android:id="@+id/fl_join"
+                android:layout_width="match_parent"
+                android:background="@drawable/selector_home_btn"
+                android:layout_height="match_parent">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="加入会议"
+                        android:textColor="@color/home_btn_color"
+                        android:drawablePadding="12dp"
+                        android:drawableTop="@drawable/selector_join_btn"/>
+
+            </FrameLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v4.widget.Space
+            android:layout_width="4dp"
+            android:layout_height="match_parent" />
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:translationZ="3dp"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="12dp"
+            android:layout_height="130dp">
+
+            <FrameLayout
+                android:id="@+id/fl_book"
+                android:layout_width="match_parent"
+                android:background="@drawable/selector_home_btn"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="安排会议"
+                    android:textColor="@color/home_btn_color"
+                    android:drawablePadding="12dp"
+                    android:drawableTop="@drawable/selector_book_btn"/>
+
+            </FrameLayout>
+
+        </android.support.v7.widget.CardView>
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_theme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入会议主题" />
-
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="请输入会议密码" />
-
-        <Button
-            android:id="@+id/btn_creat_meet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="创建会议" />
-    </LinearLayout>
-
-
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/et_meetId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="请输入会议ID" />
-
-        <Button
-            android:id="@+id/btn_join_meet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="加入会议" />
-
-    </LinearLayout>
-
-
+        android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_meet_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
        >
     </android.support.v7.widget.RecyclerView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

@@ -154,7 +154,7 @@ public class libWhiteBoardFragment extends lib_BaseFragment implements WihteBoar
                         e.printStackTrace();
                     }
                 }
-                whiteBoard.initWhiteBoardWithPic(fileId, lib_MeetActivity.anyRTCId, boardArray, isSelfOpenBoard, lib_MeetActivity.userId);
+                whiteBoard.initWhiteBoardWithPic(fileId, lib_MeetActivity.meetParams.meetId, boardArray, isSelfOpenBoard, lib_MeetActivity.userParams.userId);
             }
         });
     }

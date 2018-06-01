@@ -1,40 +1,28 @@
 package org.anyrtc.lib_meeting.meet;
 
+import java.io.Serializable;
+
 /**
  * Created by liuxiaozhong on 2018/5/10.
  */
-public class MeetParams {
+public class MeetParams implements Serializable{
 
-    public String anyRTCId;
-    public String userId;
+    public String meetId;
+    public String anyRTCOpenId;
     public String hostId;
-    public String headUrl;
-    public String nickName;
     public String meetTheme;
     public String meetPassword;
     public int meetMode;
+    public int isLock;
 
-
-    /**
-     *
-     * @param anyRTCId  会议ID 保持唯一
-     * @param userId  用户ID
-     * @param hostId  主持会议的人的ID
-     * @param headUrl  头像地址
-     * @param nickName  用户昵称
-     * @param meetTheme  会议主题
-     * @param meetPassword  会议密码
-     * @param meetMode  会议清晰度
-     */
-    public MeetParams(String anyRTCId, String userId, String hostId,String headUrl,String nickName,String  meetTheme,String meetPassword,int meetMode) {
-        this.anyRTCId = anyRTCId;
-        this.userId = userId;
-        this.hostId=hostId;
-        this.headUrl = headUrl;
-        this.nickName=nickName;
-        this.meetTheme=meetTheme;
-        this.meetPassword=meetPassword;
-        this.meetMode=meetMode;
+    public MeetParams(String meetId, String anyRTCOpenId, String hostId, String meetTheme, String meetPassword, int meetMode,int isLock) {
+        this.meetId = meetId;
+        this.anyRTCOpenId = anyRTCOpenId;
+        this.hostId = hostId;
+        this.meetTheme = meetTheme;
+        this.meetPassword = meetPassword;
+        this.meetMode = meetMode;
+        this.isLock=isLock;
     }
 
     public enum MeetMode{

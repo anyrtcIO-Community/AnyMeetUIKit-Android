@@ -2,6 +2,7 @@ package org.anyrtc.meeting;
 
 import org.anyrtc.lib_meeting.MeetApplication;
 import org.anyrtc.lib_meeting.meet.MeetSDK;
+import org.anyrtc.meeting.utils.SpUtil;
 
 /**
  * Created by liuxiaozhong on 2018/5/9.
@@ -15,5 +16,6 @@ public class MyApp extends MeetApplication {
     public void onCreate() {
         MeetSDK.getInstance().setAnyRTCInfo(Constans.DEVELOPERID, Constans.APPID, Constans.APPKEY, Constans.APPTOKEN);
         super.onCreate();
+        SpUtil.init(this);
     }
 }

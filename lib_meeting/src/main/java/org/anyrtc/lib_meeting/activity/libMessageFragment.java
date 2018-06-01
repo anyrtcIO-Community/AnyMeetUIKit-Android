@@ -71,9 +71,9 @@ public class libMessageFragment extends lib_BaseFragment {
                     Toast.makeText(getActivity(), R.string.please_input_content,Toast.LENGTH_LONG).show();
                 }else {
                     if (rtMeetKit != null) {
-                        rtMeetKit.sendUserMessage(lib_MeetActivity.nickName, lib_MeetActivity.headUrl, setJsonMessage(etContent.getText().toString(), System.currentTimeMillis()));
+                        rtMeetKit.sendUserMessage(lib_MeetActivity.userParams.nickName, lib_MeetActivity.userParams.headUrl, setJsonMessage(etContent.getText().toString(), System.currentTimeMillis()));
                     }
-                    chatListAdapter.addData(new ChatBean(etContent.getText().toString(), lib_MeetActivity.headUrl, true, lib_MeetActivity.nickName));
+                    chatListAdapter.addData(new ChatBean(etContent.getText().toString(), lib_MeetActivity.userParams.headUrl, true, lib_MeetActivity.userParams.nickName));
                     etContent.setText("");
                     if (chatListAdapter != null && chatListAdapter.getData().size() > 0) {
                         if (rv_message != null) {

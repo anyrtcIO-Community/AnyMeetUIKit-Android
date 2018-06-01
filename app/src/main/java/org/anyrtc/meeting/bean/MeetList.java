@@ -72,7 +72,7 @@ public class MeetList {
         this.meetinglist = meetinglist;
     }
 
-    public static class MeetinglistBean {
+    public static class MeetinglistBean extends BaseEntity{
         /**
          * meetingid : 15907744
          * m_anyrtcid : 15907744
@@ -98,8 +98,12 @@ public class MeetList {
         private int m_is_lock;
         private int m_quality;
         private int m_line_quality;
-        private int m_start_time;
-        private int m_create_at;
+        private long m_start_time;
+        private long m_create_at;
+
+        public MeetinglistBean(String text) {
+            super(text);
+        }
 
         public String getMeetingid() {
             return meetingid;
@@ -181,19 +185,19 @@ public class MeetList {
             this.m_line_quality = m_line_quality;
         }
 
-        public int getM_start_time() {
+        public long getM_start_time() {
             return m_start_time;
         }
 
-        public void setM_start_time(int m_start_time) {
+        public void setM_start_time(long m_start_time) {
             this.m_start_time = m_start_time;
         }
 
-        public int getM_create_at() {
+        public long getM_create_at() {
             return m_create_at;
         }
 
-        public void setM_create_at(int m_create_at) {
+        public void setM_create_at(long m_create_at) {
             this.m_create_at = m_create_at;
         }
     }

@@ -218,10 +218,10 @@ public class libMemberFragment extends lib_BaseFragment implements BaseQuickAdap
             @Override
             public void init(CustomDialog view) {
                 final String shareContent = getActivity().getString(R.string.let_us_meet_in_team) + "\n" +
-                        getActivity().getString(R.string.meet_title) + lib_MeetActivity.meetTitle + "\n" +
-                        getActivity().getString(R.string.meet_url) + String.format(MeetApplication.SHARE_URL, lib_MeetActivity.anyRTCId) + "\n" +
-                        getActivity().getString(R.string.meet_ids) + lib_MeetActivity.anyRTCId + "\n" +
-                        getActivity().getString(R.string.meet_pwd) + (TextUtils.isEmpty(lib_MeetActivity.meetPassword) ? getActivity().getString(R.string.no) : lib_MeetActivity.meetPassword);
+                        getActivity().getString(R.string.meet_title) + lib_MeetActivity.meetParams.meetTheme + "\n" +
+                        getActivity().getString(R.string.meet_url) + String.format(MeetApplication.SHARE_URL, lib_MeetActivity.meetParams.meetId) + "\n" +
+                        getActivity().getString(R.string.meet_ids) + lib_MeetActivity.meetParams.meetId + "\n" +
+                        getActivity().getString(R.string.meet_pwd) + (TextUtils.isEmpty(lib_MeetActivity.meetParams.meetPassword) ? getActivity().getString(R.string.no) : lib_MeetActivity.meetParams.meetPassword);
                 Button Email=view.findViewById(R.id.btn_email);
                 Button SMS=view.findViewById(R.id.btn_sms);
                 Button URL=view.findViewById(R.id.btn_url);

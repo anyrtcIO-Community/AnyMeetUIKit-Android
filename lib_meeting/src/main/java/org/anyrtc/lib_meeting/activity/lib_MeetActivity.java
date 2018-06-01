@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -33,6 +34,9 @@ import org.anyrtc.lib_meeting.R;
 import org.anyrtc.lib_meeting.bean.ChatBean;
 import org.anyrtc.lib_meeting.bean.MemberBean;
 import org.anyrtc.lib_meeting.bean.lib_Constans;
+import org.anyrtc.lib_meeting.meet.MeetParams;
+import org.anyrtc.lib_meeting.meet.MeetSDK;
+import org.anyrtc.lib_meeting.meet.UserParams;
 import org.anyrtc.lib_meeting.utils.AnimationUtil;
 import org.anyrtc.lib_meeting.weight.CustomDialog;
 import org.anyrtc.lib_meeting.weight.TempVideoView;
@@ -74,8 +78,9 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
     private static RTMeetKit mMeetKit;
     private TempVideoView mVideoView;
 
-    public static String userId = "", anyRTCId = "", nickName = "", headUrl = "", hostId = "", meetTitle = "", meetPassword = "";
-    public int meetMode=0;
+    public static MeetParams meetParams;
+    public static UserParams userParams;
+    public int meetMode = 0;
     public String boardFileId = "";//上传文档ID
 
     private AnyRTCAudioManager anyRTCAudioManager;
@@ -130,25 +135,25 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         if (mHandler != null) {
             mHandler.postDelayed(runnable, 1000);
         }
-        userId = getIntent().getStringExtra(lib_Constans.USERID);
-        nickName = getIntent().getStringExtra(lib_Constans.NAME);
-        headUrl = getIntent().getStringExtra(lib_Constans.HEADURL);
-        anyRTCId = getIntent().getStringExtra(lib_Constans.ANYRTCID);
-        hostId = getIntent().getStringExtra(lib_Constans.HOSTID);
-        meetTitle = getIntent().getStringExtra(lib_Constans.MEETTHEME);
-        meetPassword = getIntent().getStringExtra(lib_Constans.MEETPASSWORD);
-        meetMode=getIntent().getIntExtra(lib_Constans.MEETMODE,0);
-        tvMeetId.setText(anyRTCId.length() >= 8 ? anyRTCId.substring(0, 4) + " " + anyRTCId.substring(4) : anyRTCId);
+        userParams = (UserParams) getIntent().getSerializableExtra(lib_Constans.USER_PARAMS);
+        meetParams = (MeetParams) getIntent().getSerializableExtra(lib_Constans.MEET_PARAMS);
+
+        if (userParams == null || meetParams == null) {
+            Toast.makeText(lib_MeetActivity.this, R.string.params_missing, Toast.LENGTH_SHORT).show();
+            finishAnimActivity();
+            return;
+        }
+        tvMeetId.setText(meetParams.meetId.length() >= 8 ? meetParams.meetId.substring(0, 4) + " " + meetParams.meetId.substring(4) : meetParams.meetId);
 
         anyRTCAudioManager = AnyRTCAudioManager.create(this, new Runnable() {
             @Override
             public void run() {
-                if (anyRTCAudioManager.getSelectedAudioDevice().equals(AnyRTCAudioManager.AudioDevice.SPEAKER_PHONE)){
-                    if (ivSpeak!=null) {
+                if (anyRTCAudioManager.getSelectedAudioDevice().equals(AnyRTCAudioManager.AudioDevice.SPEAKER_PHONE)) {
+                    if (ivSpeak != null) {
                         ivSpeak.setSelected(false);
                     }
-                }else {
-                    if (ivSpeak!=null) {
+                } else {
+                    if (ivSpeak != null) {
                         ivSpeak.setSelected(true);
                     }
                 }
@@ -168,7 +173,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         //设置默认为前置摄像头
         anyRTCMeetOption.setFrontCamera(true);
         anyRTCMeetOption.setVideoLayout(AnyRTCVideoLayout.AnyRTC_V_1X3);
-        switch (meetMode){
+        switch (meetMode) {
             case 0:
                 anyRTCMeetOption.setVideoMode(AnyRTCVideoQualityMode.AnyRTCVideoQuality_Low1);
                 break;
@@ -209,17 +214,17 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         //设置本地视频采集
         mMeetKit.setLocalVideoCapturer(render.GetRenderPointer());
         //加入RTC服务
-        mMeetKit.joinRTC(anyRTCId, userId, getUserData());
+        mMeetKit.joinRTC(meetParams.meetId, userParams.userId, getUserData());
     }
 
     public String getUserData() {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("MaxJoiner", 6);
-            jsonObject.put("userId", userId);
-            jsonObject.put("nickName", nickName);
+            jsonObject.put("userId", userParams.userId);
+            jsonObject.put("nickName", userParams.nickName);
             jsonObject.put("devType", 0);
-            jsonObject.put("headUrl", headUrl);
+            jsonObject.put("headUrl", userParams.headUrl);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -239,12 +244,12 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                 public void run() {
                     Log.d("callback", "onRTCJoinMeetOK strAnyRTCId=" + strAnyRTCId);
                     MemberBean memberBean = new MemberBean();
-                    memberBean.setName(nickName);
+                    memberBean.setName(userParams.userId);
                     memberBean.setdType(0);
-                    memberBean.setHost(userId.equals(hostId));
-                    memberBean.setHostId(hostId);
-                    memberBean.setIcon(headUrl);
-                    memberBean.setId(userId);
+                    memberBean.setHost(userParams.userId.equals(meetParams.hostId));
+                    memberBean.setHostId(meetParams.hostId);
+                    memberBean.setIcon(userParams.headUrl);
+                    memberBean.setId(userParams.userId);
                     memberBean.setSelf(true);
                     memBerList.add(memberBean);
                     libMemberFragment.dataNotify();
@@ -320,9 +325,9 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                                 if (memberBean.getPeerId().equals(strRTCPeerId)) {
                                     memberBean.setPeerId(strRTCPeerId);
                                     memberBean.setId(strUserId);
-                                    memberBean.setHostId(hostId);
+                                    memberBean.setHostId(meetParams.hostId);
                                     memberBean.setdType(0);
-                                    memberBean.setHost(userId.equals(hostId));
+                                    memberBean.setHost(userParams.userId.equals(meetParams.hostId));
                                     memberBean.setName(userName);
                                     memberBean.setIcon(icon);
                                     memberBean.setSelf(false);
@@ -332,8 +337,8 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                             MemberBean memberBean = new MemberBean();
                             memberBean.setPeerId(strRTCPeerId);
                             memberBean.setId(strUserId);
-                            memberBean.setHostId(hostId);
-                            memberBean.setHost(userId.equals(hostId));
+                            memberBean.setHostId(meetParams.hostId);
+                            memberBean.setHost(userParams.userId.equals(meetParams.hostId));
                             memberBean.setName(userName);
                             memberBean.setdType(dType);
                             memberBean.setIcon(icon);
@@ -400,7 +405,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                     if (!memberPeerIdList.contains(strRTCPeerId)) {
                         MemberBean memberBean = new MemberBean();
                         memberBean.setPeerId(strRTCPeerId);
-                        memberBean.setHost(userId.equals(hostId));
+                        memberBean.setHost(userParams.userId.equals(meetParams.hostId));
                         memberBean.setSelf(false);
                         memberBean.setOpenAudio(bAudio);
                         memberBean.setOpenVideo(bVideo);
@@ -412,7 +417,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                                 memBerList.get(i).setOpenAudio(bAudio);
                                 memBerList.get(i).setOpenVideo(bVideo);
                                 memBerList.get(i).setSelf(false);
-                                memBerList.get(i).setHost(userId.equals(hostId));
+                                memBerList.get(i).setHost(userParams.userId.equals(meetParams.hostId));
                             }
                         }
                     }
@@ -467,7 +472,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                                     int isvidio = jsonObject.getInt("type");
                                     int state = jsonObject.getInt("state");
                                     String userid = jsonObject.getString("userid");
-                                    if (!userId.equals(userid)) {
+                                    if (!userParams.userId.equals(userid)) {
                                         return;
                                     }
                                     if (isvidio == 0) {//音频
@@ -508,7 +513,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                                     break;
                                 case 2:
                                     String id = jsonObject.getString("userid");
-                                    if (userId.equals(id)) {
+                                    if (userParams.userId.equals(id)) {
                                         Toast.makeText(lib_MeetActivity.this, R.string.u_kicked_out_room, Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
@@ -570,10 +575,10 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                     if (type == 1) {//文档
                         isSelfShare = false;
                         try {
-                            JSONObject jsonObject=new JSONObject(strWBInfo);
-                            JSONArray image=jsonObject.getJSONArray("picArray");
-                            String fileId=jsonObject.getString("fileid");
-                            for (int i=0;i<image.length();i++){
+                            JSONObject jsonObject = new JSONObject(strWBInfo);
+                            JSONArray image = jsonObject.getJSONArray("picArray");
+                            String fileId = jsonObject.getString("fileid");
+                            for (int i = 0; i < image.length(); i++) {
                                 imageList.add(image.get(i).toString());
                             }
                             libWhiteBoardFragment = new libWhiteBoardFragment();
@@ -607,7 +612,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                         libWhiteBoardFragment.close();
                         imageList.clear();
                         getSupportFragmentManager().beginTransaction().remove(libWhiteBoardFragment).commit();
-                        libWhiteBoardFragment=null;
+                        libWhiteBoardFragment = null;
                     } else {
                         if (mVideoView != null) {
                             mVideoView.setPeopleShow(View.VISIBLE, shareScreenInfo);
@@ -644,13 +649,13 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
     public void onBtnClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_speak_lib) {
-            if (ivSpeak.isSelected()){
-                if (anyRTCAudioManager!=null) {
+            if (ivSpeak.isSelected()) {
+                if (anyRTCAudioManager != null) {
                     anyRTCAudioManager.setAudioDevice(AnyRTCAudioManager.AudioDevice.SPEAKER_PHONE);
                 }
                 ivSpeak.setSelected(false);
-            }else {
-                if (anyRTCAudioManager!=null) {
+            } else {
+                if (anyRTCAudioManager != null) {
                     anyRTCAudioManager.setAudioDevice(AnyRTCAudioManager.AudioDevice.EARPIECE);
                 }
                 ivSpeak.setSelected(true);
@@ -766,12 +771,39 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         moreFuturesDialog = builder.show(new CustomDialog.Builder.onInitListener() {
             @Override
             public void init(CustomDialog view) {
-                Switch lock = view.findViewById(R.id.switch_lock);
+                final Switch lock = view.findViewById(R.id.switch_lock);
                 Switch play = view.findViewById(R.id.switch_play_music);
-                lock.setOnClickListener(new View.OnClickListener() {
+                lock.setChecked(meetParams.isLock==1 ? true : false);
+                lock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onCheckedChanged(CompoundButton compoundButton, final boolean b) {
+                        MeetSDK.getInstance().updateMeetLock(meetParams.anyRTCOpenId, meetParams.meetId, b, new MeetSDK.RequestResult() {
+                            @Override
+                            public void Result(String result) {
+                                try {
+                                    int code=new JSONObject(result).getInt("code");
+                                    String message=new JSONObject(result).getString("message");
+                                    if (code==200){
+                                        if (b){
+                                            Toast.makeText(lib_MeetActivity.this, "会议已加锁", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(lib_MeetActivity.this, "会议已解锁", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }else {
+                                        lock.setChecked(!b);
+                                        Toast.makeText(lib_MeetActivity.this, message, Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
 
+                            @Override
+                            public void Error(String message) {
+
+                            }
+                        });
+                        Log.d("a",b+"");
                     }
                 });
                 play.setOnClickListener(new View.OnClickListener() {
@@ -856,36 +888,36 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         }
     }
 
-    public void setVideoLayoutEnable(boolean canTouch){
-        int visibale=rlTopLayout.getVisibility();
-            if (canTouch){
-                rl_video.setClickable(true);
-                rlTopLayout.setVisibility(View.VISIBLE);
-                llBottomLayout.setVisibility(View.VISIBLE);
-                rlTopLayout.setAnimation(AnimationUtil.TopmoveToViewLocation());
-                llBottomLayout.setAnimation(AnimationUtil.moveToViewLocation());
-                if (mHandler != null) {
-                    mHandler.removeCallbacks(runnable);
-                    mHandler.postDelayed(runnable, 1000);
-                }
-            }else {
-                rl_video.setClickable(false);
-                if (visibale==View.GONE){
-                    return;
-                }
-                rlTopLayout.setVisibility(View.GONE);
-                llBottomLayout.setVisibility(View.GONE);
-                rlTopLayout.setAnimation(AnimationUtil.TopmoveToViewBottom());
-                llBottomLayout.setAnimation(AnimationUtil.moveToViewBottom());
-                if (mHandler != null) {
-                    mHandler.removeCallbacks(runnable);
-                    LayoutHiddenTime = 0;
-                }
+    public void setVideoLayoutEnable(boolean canTouch) {
+        int visibale = rlTopLayout.getVisibility();
+        if (canTouch) {
+            rl_video.setClickable(true);
+            rlTopLayout.setVisibility(View.VISIBLE);
+            llBottomLayout.setVisibility(View.VISIBLE);
+            rlTopLayout.setAnimation(AnimationUtil.TopmoveToViewLocation());
+            llBottomLayout.setAnimation(AnimationUtil.moveToViewLocation());
+            if (mHandler != null) {
+                mHandler.removeCallbacks(runnable);
+                mHandler.postDelayed(runnable, 1000);
             }
+        } else {
+            rl_video.setClickable(false);
+            if (visibale == View.GONE) {
+                return;
+            }
+            rlTopLayout.setVisibility(View.GONE);
+            llBottomLayout.setVisibility(View.GONE);
+            rlTopLayout.setAnimation(AnimationUtil.TopmoveToViewBottom());
+            llBottomLayout.setAnimation(AnimationUtil.moveToViewBottom());
+            if (mHandler != null) {
+                mHandler.removeCallbacks(runnable);
+                LayoutHiddenTime = 0;
+            }
+        }
     }
 
     public boolean isHost() {
-        return userId.equals(hostId);
+        return userParams.userId.equals(meetParams.hostId);
     }
 
     public RTMeetKit getMeetKit() {
@@ -899,7 +931,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         JSONArray pic = new JSONArray();
         try {
             jsonObject.put("fileid", fileId);
-            jsonObject.put("meetid", anyRTCId);
+            jsonObject.put("meetid", meetParams.meetId);
             if (docImageList.size() > 0) {
                 for (int i = 0; i < docImageList.size(); i++) {
                     pic.put(docImageList.get(i));
@@ -922,9 +954,9 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
             mMeetKit.clear();
             mMeetKit = null;
         }
-        if (anyRTCAudioManager!=null){
+        if (anyRTCAudioManager != null) {
             anyRTCAudioManager.close();
-            anyRTCAudioManager=null;
+            anyRTCAudioManager = null;
         }
     }
 

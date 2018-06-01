@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Meeting</string>
+    <string name="wechat_login">微信登陆</string>
+    <string name="please_input_meet_id">请输入会议ID</string>
+    <string name="join_meet">加入会议</string>
+    <string name="anyrtc_meet">anyRTC视频会议</string>
+    <string name="book_meet">安排会议</string>
+    <string name="cancle">取消</string>
+    <string name="confirm">确定</string>
 </resources>
