@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <application android:theme="@style/AppTheme">
         <activity android:name=".activity.lib_MeetActivity"
+            android:launchMode="singleTask"
             android:configChanges="orientation|keyboardHidden|screenSize"></activity>
     </application>
 

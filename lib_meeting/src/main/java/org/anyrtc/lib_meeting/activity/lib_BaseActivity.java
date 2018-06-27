@@ -12,7 +12,7 @@ import com.gyf.barlibrary.ImmersionBar;
 /**
  * Created by Skyline on 2016/5/24.
  */
-public abstract class lib_BaseActivity extends AppCompatActivity {
+public abstract class lib_BaseActivity extends AppCompatActivity     {
     protected ImmersionBar mImmersionBar;
     @Override
     protected void onSaveInstanceState(Bundle outState) {

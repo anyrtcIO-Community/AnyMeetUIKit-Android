@@ -33,9 +33,20 @@
             android:textColor="@color/baise" />
     </FrameLayout>
 
-    <android.support.v4.widget.Space
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1" >
+        <TextView
+            android:id="@+id/tv_web"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="官网：www.anrtc.io"
+            android:textColor="#FEFEFE"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="12dp"
+            />
+    </RelativeLayout>
 
 </LinearLayout>

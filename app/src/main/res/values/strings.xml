@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Meeting</string>
+    <string name="app_name">Teameeting封装版</string>
     <string name="wechat_login">微信登陆</string>
     <string name="please_input_meet_id">请输入会议ID</string>
     <string name="join_meet">加入会议</string>

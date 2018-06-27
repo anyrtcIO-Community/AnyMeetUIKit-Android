@@ -20,13 +20,13 @@ import java.util.Locale;
  * Created by liuxiaozhong on 2018/5/9.
  */
 public class MeetApplication extends Application {
-    public final static String SHARE_URL="https://www.teameeting.cn/share/%s";
+    public final static String SHARE_URL="https://www.anyrtc.io/meetPlus/share/%s";
     @Override
     public void onCreate() {
         super.onCreate();
 
         Utils.init(this);
-        InitializationConfig config = InitializationConfig.newBuilder(this)
+        InitializationConfig  config = InitializationConfig.newBuilder(this)
                 .connectionTimeout(15*1000)
                 .readTimeout(15*1000)
                 .retry(1).build();

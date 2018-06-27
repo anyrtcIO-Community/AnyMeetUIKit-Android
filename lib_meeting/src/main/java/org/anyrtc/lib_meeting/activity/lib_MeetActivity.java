@@ -427,7 +427,7 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
         }
 
         @Override
-        public void onRTCAudioActive(final String strRTCPeerId, final String strUserId, final int nTime) {
+        public void onRTCAudioActive(final String strRTCPeerId, final String strUserId, int nLevel, final int nTime) {
             lib_MeetActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -435,6 +435,12 @@ public class lib_MeetActivity extends lib_BaseActivity implements View.OnClickLi
                 }
             });
         }
+
+        @Override
+        public void onRTCNetworkStatus(String strRTCPeerId, String strUserId, int nNetSpeed, int nPacketLost) {
+
+        }
+
 
         /**
          * 声音检测

@@ -3,12 +3,13 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 version = "1.0.0"
 android {
-    compileSdkVersion 27
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0.0"
 
@@ -102,24 +103,33 @@ javadoc {
         version true
         links "http://docs.oracle.com/javase/7/docs/api"
     }
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '26.1.0'
+                }
+            }
+        }
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    compile 'com.android.support:recyclerview-v7:27.1.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:support-v4:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
     testImplementation 'junit:junit:4.12'
     implementation files('libs/javabase64-1.3.1.jar')
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
-    compile 'com.yanzhenjie.nohttp:okhttp:1.1.4'
+    compile 'com.yanzhenjie.nohttp:okhttp:1.1.10'
     implementation 'com.yanzhenjie:album:2.1.1'
-    compile ('org.anyrtc:WhiteBoard:2.1.7'){
-        exclude group: "com.android.support", module: "support-v4"
-    }
-    implementation 'org.anyrtc:meet_kit:2.4.6'
+    compile 'org.anyrtc:WhiteBoard:2.0.0'
+    implementation 'org.anyrtc:meet_kit:2.4.7'
     implementation 'com.github.bumptech.glide:glide:4.3.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.3.1'
     implementation 'com.example.zhouwei.library:library:1.0.0'
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+    implementation 'com.android.support:appcompat-v7:+'
 }

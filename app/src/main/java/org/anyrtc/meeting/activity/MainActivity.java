@@ -44,6 +44,8 @@ public class MainActivity extends BaseActivity implements NotifyMessageManager.i
     TextView tvLeft;
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_right)
+    TextView tvRight;
     @BindView(R.id.fl_join)
     FrameLayout flJoin;
     @BindView(R.id.fl_book)
@@ -89,10 +91,12 @@ public class MainActivity extends BaseActivity implements NotifyMessageManager.i
         return R.layout.activity_meeting;
     }
 
+
     @Override
     public void initView(Bundle savedInstanceState) {
         tvTitle.setText(R.string.anyrtc_meet);
         tvLeft.setVisibility(View.GONE);
+        tvRight.setText("退出登录");
         NotifyMessageManager.getInstance().setImageChoosedNotify(this);
         userOpenId= SpUtil.getString(Constans.ANYRTC_OPENID);
         meetListAdapter = new MeetListAdapter();
@@ -147,7 +151,7 @@ public class MainActivity extends BaseActivity implements NotifyMessageManager.i
     }
 
 
-    @OnClick({R.id.fl_join, R.id.fl_book})
+    @OnClick({R.id.fl_join, R.id.fl_book,R.id.tv_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_join:
@@ -156,6 +160,14 @@ public class MainActivity extends BaseActivity implements NotifyMessageManager.i
             case R.id.fl_book:
                 Intent i=new Intent(MainActivity.this,BookActivity.class);
                 startActivityForResult(i,8);
+                break;
+            case R.id.tv_right:
+                SpUtil.putString(Constans.ANYRTC_OPENID, null);
+                SpUtil.putString(Constans.USERID, null);
+                SpUtil.putString(Constans.HEADURL, null);
+                SpUtil.putString(Constans.NICKNAME, null);
+                startAnimActivity(LoginActivity.class);
+                finishAnimActivity();
                 break;
         }
     }
